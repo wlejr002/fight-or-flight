@@ -1,19 +1,23 @@
-import { parse, roundToNearestMinutes } from "date-fns"
 import { useState } from "react"
+import { useRouter } from 'next/router'
 
 
 
+// const router = useRouter();
+// const api_key = ''
+// const acc_name = router.query.id
 
-const api_key = ''
-const acc_name = ""
-const summoner_name_url = `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${acc_name}?api_key=${api_key}`
-const matchResults = {}
 
 function apiLanding() {
+    const router = useRouter();
+    const api_key = ''
+    const acc_name = router.query.id
+    const summoner_name_url = `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${acc_name}?api_key=${api_key}`
+    const matchResults = {} 
+
+
     const [data, setData] = useState()
    
-
-
     const fetchData = async () => {
         try {
             let summoner_id = await getId()
