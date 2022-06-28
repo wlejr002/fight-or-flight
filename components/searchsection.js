@@ -1,16 +1,25 @@
 import Link from "next/link";
 import styles from "../styles/searchsection.module.css"
+import { useRouter } from "next/router";
+
 export default function SearchSection({ func,data }) {
+  const router = useRouter()
   return (
     <div>
       <input className = {styles.searchInput}
         type="text"
         placeholder="Enter Summoner Name"
+        // clicking the button sets the value of the link (?)
         onChange = {(event) => func(event.target.value)}
+
+        // pressing enter gets us there
         onKeyDown = {
           (event) => {
             if (event.key === "Enter") {
-              alert(event.target.value)
+              router.push({
+                pathname: data,
+                query: { id:data },
+              })
             }
           }
         }
