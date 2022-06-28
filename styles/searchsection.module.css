@@ -1,0 +1,42 @@
+.searchInput {
+    margin-right: 2%;
+    margin-left: 13%;
+    font-size: large;
+    vertical-align: middle;
+    text-align: center;
+    align-items: center;
+    border-color: black;
+    border-width: 1.5px;
+    border-radius: 0.3rem;
+}
+
+.searchButton {
+    background-color: #008CBA; 
+    border-color: black;
+    border-width: 1.5px;
+    border-radius: 0.3rem;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    font-size: large;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+.searchButton:hover {
+    background-color: #39cdff; 
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    transition-duration: 1000ms;
+}
+
+.searchContainer {
+    background-color: #E5E4E2;
+    max-width: 30rem;
+    padding: 1rem 2rem 4rem 2rem;
+    margin: 3rem auto 6rem;
+    border-radius: 2%;
+}
+
+.dodgeHeader {
+    text-align: center;
+    font-size: 42px;
+}

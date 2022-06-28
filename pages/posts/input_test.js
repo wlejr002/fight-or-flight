@@ -1,7 +1,10 @@
-import {useState} from "react"
-import {Input, Button} from "@nextui-org/react"
-import { useRouter } from 'next/router'
-import Link from "next/link";
+import {useState} from "react";
+// import {Input, Button} from "@nextui-org/react"
+// import { useRouter } from 'next/router'
+import SearchSection from "../../components/searchsection"
+import styles from "../../styles/searchsection.module.css"
+// import SearchButton from "../../components/searchbutton";
+// import SearchInput from "../../components/searchinput";
 
 function input_test() {
     const [data, setData] = useState('')
@@ -11,53 +14,21 @@ function input_test() {
     }
 
     function onSave(temp){
-
-
-
         console.log(temp, data)
-        
     }
 
-    const posts = [
-        {
-          id: 1,
-          title: "Post #1"
-        },
-        {
-          id: 2,
-          title: "Post #2"
-        }
-      ];
-   
-
-
-
     return (
-        <div>
-
-            <input
+        <div className = {styles.searchContainer}>
+            { /*<input
                 type="text"
                 placeholder="Enter new name"
                 onChange={(e) => setData(e.target.value)}
-            />
-            
-            
-            <Link
-              href={{
-                pathname: data,
-                query: { id:data }
-              }}
-            >
-              <a>FIND ME !</a>
-            </Link>
-         
-            <button  onClick={() => onSave(data)}>Save</button>
+            /> */}
+            <h1 className = {styles.dodgeHeader}>Should I dodge?</h1>
+            <SearchSection func = {setData} data = {data} />
+            {/* {<button  onClick={() => onSave(data)}>Save</button>} */}
         </div>
-
     );
-
-    
 }
-
 
 export default input_test

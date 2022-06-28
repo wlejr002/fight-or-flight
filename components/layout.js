@@ -7,7 +7,6 @@ import React from 'react';
 // import { HeaderSimple } from './HeaderSimple/HeaderSimple.tsx'
 
 const name = 'Shu Uesugi'
-const HEADER_HEIGHT = 60;
 export const siteTitle = 'Next.js Sample Website'
 
 export default function Layout({ children, home }) {
