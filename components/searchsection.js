@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styles from "../styles/searchsection.module.css"
 import { useRouter } from "next/router";
+import { input_parser, input_parser_toString } from "./input_parser";
 
 export default function SearchSection({ func,data }) {
   const router = useRouter()
@@ -16,9 +17,11 @@ export default function SearchSection({ func,data }) {
         onKeyDown = {
           (event) => {
             if (event.key === "Enter") {
+              console.log(input_parser_toString(data))
+              console.log(input_parser(data))
               router.push({
-                pathname: data,
-                query: { id:data },
+                pathname: input_parser_toString(data),
+                query: { id:input_parser(data) },
               })
             }
           }
@@ -26,8 +29,8 @@ export default function SearchSection({ func,data }) {
       />
       <Link
         href={{
-          pathname: data,
-          query: { id:data }
+          pathname: input_parser_toString(data),
+          query: { id:input_parser(data) }
         }}
         >
         <button className = {styles.searchButton}>FIND ME!</button>
