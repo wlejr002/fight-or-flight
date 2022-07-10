@@ -1,9 +1,13 @@
 import Link from "next/link";
-import styles from "../styles/searchsection.module.css"
+import styles from "../styles/SearchSection.module.css"
 import { useRouter } from "next/router";
 
 export default function SearchSection({ func,data }) {
   const router = useRouter()
+  const route_to = {
+          pathname: data,
+          query: { id:data }
+        }
   return (
     <div>
       {/* <input className = {styles.searchInput}
@@ -26,20 +30,30 @@ export default function SearchSection({ func,data }) {
         }
       /> */}
       <textarea 
-        className={styles.searchInput}
-        id="this" 
-        name="this" 
+        className={styles.searchTextArea}
+        id="champ-select text input" 
+        name="champ-select text input" 
+        placeholder="Paste champ select text"
         rows="5" 
-        cols="25">
-        Paste champ select text
+        cols="30"
+
+        // clicking the button sets the value of the link (?)
+        onChange = {(event) => func(event.target.value)}
+
+        // pressing enter gets us there
+        onKeyDown = {
+          (event) => {
+            if (event.key === "Enter") {
+              router.push(route_to)
+            }
+          }
+        }
+      >
       </textarea>
       <Link
-        href={{
-          pathname: data,
-          query: { id:data }
-        }}
+        href={route_to}
         >
-        <button className = {styles.searchButton}>FIND ME!</button>
+        <button className = {styles.searchButton}>Search</button>
       </Link>
     </div>
   )

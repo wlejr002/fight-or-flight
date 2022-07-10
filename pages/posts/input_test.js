@@ -1,8 +1,8 @@
 import {useState} from "react";
 // import {Input, Button} from "@nextui-org/react"
 // import { useRouter } from 'next/router'
-import SearchSection from "../../components/searchsection"
-import styles from "../../styles/searchsection.module.css"
+import SearchSection from "../../components/SearchSection"
+import styles from "../../styles/SearchSection.module.css"
 // import SearchButton from "../../components/searchbutton";
 // import SearchInput from "../../components/searchinput";
 
@@ -19,14 +19,8 @@ function input_test() {
 
     return (
         <div className = {styles.searchContainer}>
-            { /*<input
-                type="text"
-                placeholder="Enter new name"
-                onChange={(e) => setData(e.target.value)}
-            /> */}
             <h1 className = {styles.dodgeHeader}>Should I dodge?</h1>
             <SearchSection func = {setData} data = {data} />
-            {/* {<button  onClick={() => onSave(data)}>Save</button>} */}
         </div>
     );
 }
