@@ -1,8 +1,6 @@
 import { useState } from "react"
 import { useRouter } from 'next/router'
 
-
-
 // const router = useRouter();
 // const api_key = ''
 // const acc_name = router.query.id
@@ -11,31 +9,43 @@ import { useRouter } from 'next/router'
 function apiLanding() {
     const router = useRouter();
     const api_key = ''
-    const acc_name = router.query.id
-    const summoner_name_url = `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${acc_name}?api_key=${api_key}`
-    const matchResults = {} 
+    const acc_name = [
+        "G Van Rossum", 
+        "Round Bruce Lee", 
+        "Fiction",
+        "Big T",
+        "ShorterACE"
+    ]
+    // const summoner_name_url = `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${acc_name}?api_key=${api_key}`
 
+    const summoner_name_urls = acc_name.map( name => {
+        return `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}?api_key=${api_key}`
+    } )
+
+    const matchResults = {} 
     const [data, setData] = useState()
     const fetchData = async () => {
         try {
-            let summoner_id = await getId()
-            let currentParticipants = await getCurrentMatch(summoner_id)
-            console.log("result is ", summoner_id)
-            console.log("current match is ", currentParticipants)
-            let nameToPuuid = await summonerId_to_PUUID(currentParticipants)
+            // let summoner_id = await getId(summoner_name_urls[i])
+            // let currentParticipants = await getCurrentMatch(summoner_id)
+            // console.log("result is ", summoner_id)
+            // console.log("current match is ", currentParticipants)
+            let nameToPuuid = await summonerId_to_PUUID(acc_name)
             console.log("name to puuid is", nameToPuuid)
-            console.log(getPreviousMatches(nameToPuuid, 3))
-            console.log(matchResults)
+            console.log("Prev match get", getPreviousMatches(nameToPuuid, 3))
+            console.log("match results", matchResults)
         } catch {
             console.log(`fail`)
         }
     }
 
-    const getId = async () => {
+    const getId = async (summoner_name_url) => {
 
+        // getting ID
         const response_name = await fetch(summoner_name_url)
         const summoner_by_name_data = await response_name.json()
         var summoner_id = summoner_by_name_data.id
+
         console.log(summoner_id)
         return summoner_id
     }
@@ -56,7 +66,7 @@ function apiLanding() {
     const summonerId_to_PUUID = async (summoner_ids) => {
         var jsonData = []
         for (var i = 0; i < summoner_ids.length; i++) {
-            let summoner_id = summoner_ids[i].summonerName
+            let summoner_id = summoner_ids[i]
 
             const url = `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner_id}?api_key=${api_key}`
             const response = await fetch(url)
@@ -79,7 +89,7 @@ function apiLanding() {
             matchResults[puuids[i].summonerName] = winLose
         }
         setData(matchResults)
-        console.log(matchResults)
+    
     }
 
     const parseMatchInfo = async (matchids, puuid) => {
@@ -100,7 +110,12 @@ function apiLanding() {
     return (
         <div>
             <button onClick={fetchData} >data</button>
-            <h1> Hello World  </h1>
+            <p>
+                {
+                    data.keys()
+                }
+            </p>
+            <h1> hi </h1>
         </div>
 
 

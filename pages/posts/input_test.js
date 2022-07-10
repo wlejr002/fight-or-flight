@@ -6,6 +6,8 @@ import styles from "../../styles/SearchSection.module.css"
 // import SearchButton from "../../components/searchbutton";
 // import SearchInput from "../../components/searchinput";
 
+// this
+
 function input_test() {
     const [data, setData] = useState('')
     const ROUTE_POST_ID = "[id]";
