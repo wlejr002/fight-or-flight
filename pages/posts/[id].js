@@ -8,6 +8,7 @@ import { getMatchData } from "../../components/getMatchData"
 
 
 function apiLanding() {
+
     const router =useRouter()
     const acc_name = router.query.id.split("   ")
 
