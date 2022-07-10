@@ -4,8 +4,19 @@ import utilStyles from '../styles/utils.module.css'
 // import { getSortedPostsData } from '../lib/posts'
 import Link from 'next/link'
 import Date from '../components/date'
+import { getMatchData } from '../components/getMatchData'
 
+const acc_name = [
+  "G Van Rossum", 
+  "Round Bruce Lee", 
+  "Fiction",
+  "Big T",
+  "ShorterACE"
+]
 export default function Home({ allPostsData }) {
+  
+  getMatchData(acc_name)
+
   return (
     <Layout home>
       <Head>
