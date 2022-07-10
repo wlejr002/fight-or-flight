@@ -1,12 +1,13 @@
 import Link from "next/link";
 import styles from "../styles/SearchSection.module.css"
 import { useRouter } from "next/router";
+import { input_parser, input_parser_toString } from "./input_parser";
 
 export default function SearchSection({ func,data }) {
   const router = useRouter()
   const route_to = {
-          pathname: data,
-          query: { id:data }
+          pathname: input_parser(data),
+          query: { id: input_parser(data) }
         }
   return (
     <div>

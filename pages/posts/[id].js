@@ -10,17 +10,22 @@ import { getMatchData } from "../../components/getMatchData"
 function apiLanding() {
 
     const router =useRouter()
-    const acc_name = router.query.id.split("   ")
+    const acc_name = router.query.id.split(",")
+    
+    acc_name.pop()
 
-    const api_key = 'RGAPI-bcb8d002-98d4-4013-bd1a-413919def18f'
+    const api_key = 'RGAPI-f5040fed-5d22-46f6-93d7-0211c76f6752'
     const matchResults = []
     const [data, setData] = useState()
     const [isLoading, setLoading] = useState(false)
 
     const summonerId_to_PUUID = async (summoner_ids) => {
         var jsonData = []
+
         for (var i = 0; i < summoner_ids.length; i++) {
             let summoner_id = summoner_ids[i]
+            console.log("summoner id ", summoner_id)
+            
 
             const url = `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner_id}?api_key=${api_key}`
             const response = await fetch(url)
@@ -28,6 +33,7 @@ function apiLanding() {
 
             jsonData[i] = { summonerName: summoner_id, puuid: account_info.puuid }
         }
+
         return jsonData
     }
 
@@ -69,6 +75,7 @@ function apiLanding() {
    
     const fetchData = async () => {
         try {
+            console.log("accname in faetch data is ", acc_name)
 
             let nameToPuuid = await summonerId_to_PUUID(acc_name)
             console.log("nametopuuid", nameToPuuid)

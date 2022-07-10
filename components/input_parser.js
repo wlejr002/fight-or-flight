@@ -5,9 +5,9 @@
 export const input_parser = (inputString) => {
     let parsed = inputString.split("joined the lobby")
     let out = ""
-    for(let i = 0 ; i < parsed.length; i ++){
-        if(parsed[i] != ""){
-            out += parsed[i] +","
+    for(let i = 0 ; i < parsed.length-1; i ++){
+        if(parsed[i].length >1){
+            out += parsed[i] + ","
         }
         
     }
