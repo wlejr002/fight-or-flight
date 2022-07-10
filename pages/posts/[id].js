@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 
 function apiLanding() {
     const router = useRouter();
-    const api_key = 'RGAPI-e3209815-b864-471e-a8f4-61573373a1f3'
+    const api_key = ''
     const acc_name = router.query.id
     const summoner_name_url = `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${acc_name}?api_key=${api_key}`
     const matchResults = {} 
