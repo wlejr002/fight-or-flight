@@ -1,5 +1,6 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from 'next/router'
+import { getMatchData } from "../../components/getMatchData"
 
 // const router = useRouter();
 // const api_key = ''
@@ -7,62 +8,13 @@ import { useRouter } from 'next/router'
 
 
 function apiLanding() {
-    const router = useRouter();
-    const api_key = 'RGAPI-4b30d24d-1c5a-4707-a62f-9335fd428576'
-    const acc_name = [
-        "G Van Rossum", 
-        "Round Bruce Lee", 
-        "Fiction",
-        "Big T",
-        "ShorterACE"
-    ]
-    // const summoner_name_url = `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${acc_name}?api_key=${api_key}`
+    const router =useRouter()
+    const acc_name = router.query.id.split("   ")
 
-    const summoner_name_urls = acc_name.map( name => {
-        return `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}?api_key=${api_key}`
-    } )
-
-    const matchResults = {} 
+    const api_key = 'RGAPI-bcb8d002-98d4-4013-bd1a-413919def18f'
+    const matchResults = []
     const [data, setData] = useState()
-   
-    const fetchData = async () => {
-        try {
-            // let summoner_id = await getId(summoner_name_urls[i])
-            // let currentParticipants = await getCurrentMatch(summoner_id)
-            // console.log("result is ", summoner_id)
-            // console.log("current match is ", currentParticipants)
-            let nameToPuuid = await summonerId_to_PUUID(acc_name)
-            console.log("name to puuid is", nameToPuuid)
-            console.log("Prev match get", getPreviousMatches(nameToPuuid, 3))
-            console.log("match results", matchResults)
-        } catch {
-            console.log(`fail`)
-        }
-    }
-
-    const getId = async (summoner_name_url) => {
-
-        // getting ID
-        const response_name = await fetch(summoner_name_url)
-        const summoner_by_name_data = await response_name.json()
-        var summoner_id = summoner_by_name_data.id
-
-        console.log(summoner_id)
-        return summoner_id
-    }
-
-    const getCurrentMatch = async (summoner_id) => {
-        console.log("summoner id is ", summoner_id)
-        const spectator_id = `https://na1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/${summoner_id}?api_key=${api_key}`
-
-        const response_spectator = await fetch(spectator_id)
-        const curr_match = await response_spectator.json()
-        var participants = curr_match.participants
-
-        let protagonist_team = participants.find(el => el.summonerId == summoner_id).teamId
-        let team_memebers = participants.filter(member => member.teamId == protagonist_team)
-        return team_memebers
-    }
+    const [isLoading, setLoading] = useState(false)
 
     const summonerId_to_PUUID = async (summoner_ids) => {
         var jsonData = []
@@ -86,10 +38,18 @@ function apiLanding() {
             const response = await fetch(url)
             const matches = await response.json()
             let winLose = await parseMatchInfo(matches, puuid)
+
+            let temp2 = puuids[i].summonerName.toString()
+
+            const ddd = { summonerName : temp2 ,
+                            winRecords :winLose}
             
-            matchResults[puuids[i].summonerName] = winLose
+            matchResults.push( ddd)
+            
+
+            
         }
-        setData(matchResults)
+        return matchResults
     
     }
 
@@ -105,22 +65,50 @@ function apiLanding() {
         return temp
     }
 
+   
+    const fetchData = async () => {
+        try {
 
+            let nameToPuuid = await summonerId_to_PUUID(acc_name)
+            console.log("nametopuuid", nameToPuuid)
+            let prevMatches = await getPreviousMatches(nameToPuuid, 2)
+            console.log("prevmatches", prevMatches)
+            return prevMatches
+        } catch {
+            console.log(`fail`)
+        }
+    }
 
+    useEffect (() => {
+        setLoading(true)
+        fetchData()
+            .then((data) => {
+                setData(data), 
+                setLoading(false),
+                console.log("data is" , data)})
+    }, [])
+
+    if (isLoading) return <p>Loading...</p>
+    if (!data) return <p>No profile data</p>
 
     return (
-        <div>
-            <button onClick={fetchData} >data</button>
-            <p>
-                {
-                    data.keys()
-                }
-            </p>
-            <h1> hi </h1>
-        </div>
-
+        data.map((res) => 
+            <div> 
+                {<li key={res.summonerName}> 
+                    {res.summonerName}
+                </li>}
+                
+                {res.winRecords.map((item) => 
+                <h1>{item.toString()}</h1>)}
+                    
+            </div>
+        )
 
     )
+
+
+
+
 }
 
 export default apiLanding

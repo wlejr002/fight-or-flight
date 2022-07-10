@@ -17,11 +17,9 @@ export default function SearchSection({ func,data }) {
         onKeyDown = {
           (event) => {
             if (event.key === "Enter") {
-              console.log(input_parser_toString(data))
-              console.log(input_parser(data))
               router.push({
                 pathname: input_parser_toString(data),
-                query: { id:input_parser(data) },
+                query: {id:input_parser(data) },
               })
             }
           }
@@ -30,7 +28,7 @@ export default function SearchSection({ func,data }) {
       <Link
         href={{
           pathname: input_parser_toString(data),
-          query: { id:input_parser(data) }
+          query: { id: input_parser(data) }
         }}
         >
         <button className = {styles.searchButton}>FIND ME!</button>
