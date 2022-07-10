@@ -8,8 +8,10 @@ import { getMatchData } from "../../components/getMatchData"
 
 
 function apiLanding() {
+
     const router =useRouter()
     const acc_name = router.query.id.split("   ")
+
 
     const api_key = 'RGAPI-bcb8d002-98d4-4013-bd1a-413919def18f'
     const matchResults = []
