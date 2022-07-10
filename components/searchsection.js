@@ -6,9 +6,10 @@ export default function SearchSection({ func,data }) {
   const router = useRouter()
   return (
     <div>
-      <input className = {styles.searchInput}
+      {/* <input className = {styles.searchInput}
         type="text"
         placeholder="Enter Summoner Name"
+        height="40"
         // clicking the button sets the value of the link (?)
         onChange = {(event) => func(event.target.value)}
 
@@ -23,7 +24,15 @@ export default function SearchSection({ func,data }) {
             }
           }
         }
-      />
+      /> */}
+      <textarea 
+        className={styles.searchInput}
+        id="this" 
+        name="this" 
+        rows="5" 
+        cols="25">
+        Paste champ select text
+      </textarea>
       <Link
         href={{
           pathname: data,

@@ -15,9 +15,7 @@ function apiLanding() {
     const summoner_name_url = `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${acc_name}?api_key=${api_key}`
     const matchResults = {} 
 
-
     const [data, setData] = useState()
-   
     const fetchData = async () => {
         try {
             let summoner_id = await getId()
