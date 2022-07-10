@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 
 function apiLanding() {
     const router = useRouter();
-    const api_key = 'RGAPI-4b30d24d-1c5a-4707-a62f-9335fd428576'
+    const api_key = ''
     const acc_name = [
         "G Van Rossum", 
         "Round Bruce Lee", 
@@ -24,7 +24,6 @@ function apiLanding() {
 
     const matchResults = {} 
     const [data, setData] = useState()
-   
     const fetchData = async () => {
         try {
             // let summoner_id = await getId(summoner_name_urls[i])
